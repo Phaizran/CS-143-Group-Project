@@ -17,7 +17,7 @@ public class MazeGenerator {
 
 		}
 
-		// Randomly Generating Walls
+		// Randomly Generating Walls, TODO: MAY NEED TO SET MORE LIMITS, SUCH AS MAX WALLS
 		for (int x = 0; x < map.length; x++) {
 			for (int y = 0; y < map[x].length; y++) {
 				double north = Math.random();
