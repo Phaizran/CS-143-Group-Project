@@ -5,6 +5,7 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		MazeGenerator maze = new MazeGenerator(10,10);
+		maze.printInfo();
 	}
 
 }
