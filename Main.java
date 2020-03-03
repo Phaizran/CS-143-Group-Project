@@ -6,6 +6,7 @@ public class Main {
 
 		MazeGenerator maze = new MazeGenerator(10,10);
 		maze.printInfo();
+		MazeSolver solve = new MazeSolver("pass in the parameter");
 	}
 
 }
