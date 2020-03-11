@@ -10,24 +10,22 @@ public class MazeSolver{
 	//the array tracking the path
 	private boolean[][] before;
 	//the array tracking the correct path;
-	private boolean[][] correctPath;
+	private int[][] correctPath;
 	//width and height of the maze
 	private int width, height;
-	//number indicates wall
-	private int wall;
 	
 	public MazeSolver(MazeGenerator maze)
 	{
 		//acquiring the information about the maze and initialize solver
 		this.width = map.length;
 		this.height = map[0].length;
-		this.map = map;
+		this.map = maze.map;
 		before = new boolean[width][height];
-		correctPath = new boolean[width][height];   
+		correctPath = new int[width][height];   
 		this.sX = 0;
 		this.sY = 0;
-		this.eX = width;
-		this.eY = height;
+		this.eX = width - 1;
+		this.eY = height - 1;
 	}
 	public boolean solver(int sX, int sY) {
 		if(solverHelper(sX, sY))
@@ -35,6 +33,10 @@ public class MazeSolver{
 			return true;
 		}
 		return false;
+	}
+	public int[][] getSolver()
+	{
+		return correctPath;
 	}
 	
 	private boolean solverHelper(int x, int y) {
@@ -44,7 +46,7 @@ public class MazeSolver{
 			return true;
 		}
 		//checking if we came to this place before or if it's wall
-		if(map[x][y].isNorthIsWall()  || map[x][y].isSouthIsWall() || map[x][y].isWestIsWall() || map[x][y].isEastIsWall() || before[x][y])
+		if(before[x][y])
 		{
 			return false;
 		}
@@ -53,40 +55,40 @@ public class MazeSolver{
 		before[x][y] = true;
 		
 		//make sure it doesn't go over the wall in y direction
-		if(x != width - 1)
+		if(!map[x][y].isEastIsWall())
 		{
 			//going right
 			if(solverHelper(x+1, y))
 			{
-				correctPath[x][y]= true;
+				correctPath[x][y]= 1;
 				return true;
 			}
 		}
-		if(y != 0)
+		if(!map[x][y].isSouthIsWall())
 		{
 			//going down
 			if(solverHelper(x, y - 1))
 			{
-				correctPath[x][y]= true;
+				correctPath[x][y]= 1;
 				return true;
 			}
 		}
-		if(y != height - 1)
+		if(!map[x][y].isNorthIsWall())
 		{
 			//going up
 			if(solverHelper(x, y + 1))
 			{
-				correctPath[x][y]= true;
+				correctPath[x][y]= 1;
 				return true;
 			}
 		}
 		//make sure it doesn't go over the wall in x direction
-		if(x != 0)
+		if(!map[x][y].isWestIsWall())
 		{
 			//going left
 			if(solverHelper(x-1,y))
 			{
-				correctPath[x][y]= true;
+				correctPath[x][y]= 1;
 				return true;
 			}
 		}
