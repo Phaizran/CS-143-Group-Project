@@ -16,7 +16,7 @@ public class MazeSolver{
 	//number indicates wall
 	private int wall;
 	
-	public void MazeSolver(MazeGenerator maze)
+	public MazeSolver(MazeGenerator maze)
 	{
 		//acquiring the information about the maze and initialize solver
 		this.width = map.length;
@@ -24,10 +24,10 @@ public class MazeSolver{
 		this.map = map;
 		before = new boolean[width][height];
 		correctPath = new boolean[width][height];   
-		this.sX = sX;
-		this.sY = sY;
-		this.eX = eX;
-		this.eY = eY;
+		this.sX = 0;
+		this.sY = 0;
+		this.eX = width;
+		this.eY = height;
 	}
 	public boolean solver(int sX, int sY) {
 		if(solverHelper(sX, sY))
