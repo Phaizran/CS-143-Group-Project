@@ -16,7 +16,7 @@ public class MazeSolver{
 	//number indicates wall
 	private int wall;
 	
-	public void MazeSolver(int sX, int sY, MazeTile[][]map, int eX, int eY)
+	public void MazeSolver(MazeGenerator maze)
 	{
 		//acquiring the information about the maze and initialize solver
 		this.width = map.length;
