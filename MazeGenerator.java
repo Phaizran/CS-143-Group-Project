@@ -3,10 +3,19 @@ public class MazeGenerator {
 
 	public MazeTile[][] map;
 
-	public MazeGenerator(int width, int height) {
-		map = new MazeTile[width][height];
+	public int length;
+	public int width;
+	
+	public boolean End;
+	public boolean Start;
 
-		System.out.println("Width: " + map.length + " Height: " + map[0].length);
+
+	public MazeGenerator(int width, int length) {
+		map = new MazeTile[width][length];
+		this.length = length;
+		this.width = width;
+
+		System.out.println("Width: " + this.width + " length: " + length);
 
 		for (int x = 0; x < map.length; x++) {
 			for (int y = 0; y < map[x].length; y++) {
@@ -17,7 +26,11 @@ public class MazeGenerator {
 
 		}
 
-		// Randomly Generating Walls, TODO: MAY NEED TO SET MORE LIMITS, SUCH AS MAX WALLS
+		map[0][0].isStart = true;
+		map[map.length - 1][map[0].length - 1].isEnd = true;
+
+		// Randomly Generating Walls, TODO: MAY NEED TO SET MORE LIMITS, SUCH AS MAX
+		// WALLS
 		for (int x = 0; x < map.length; x++) {
 			for (int y = 0; y < map[x].length; y++) {
 				double north = Math.random();
@@ -69,7 +82,8 @@ public class MazeGenerator {
 			for (int y = 0; y < map[x].length; y++) {
 				System.out.println("Pos: " + map[x][y].getxCord() + "," + map[x][y].getyCord());
 				System.out.println("North Wall:" + map[x][y].isNorthIsWall() + " East Wall: " + map[x][y].isEastIsWall()
-						+ " South Wall: " + map[x][y].isSouthIsWall() + " West Wall: " + map[x][y].isWestIsWall() + "\n");
+						+ " South Wall: " + map[x][y].isSouthIsWall() + " West Wall: " + map[x][y].isWestIsWall()
+						+ "\n");
 
 			}
 		}

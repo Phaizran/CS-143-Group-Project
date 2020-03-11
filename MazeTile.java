@@ -4,6 +4,9 @@ public class MazeTile {
 	private boolean eastIsWall;
 	private boolean southIsWall;
 	private boolean westIsWall;
+	
+	public boolean isEnd;
+	public boolean isStart;
 
 	// To keep track of tile's position in the maze
 	// Value will be given during the generation of the maze
@@ -19,6 +22,9 @@ public class MazeTile {
 		eastIsWall = false;
 		southIsWall = false;
 		westIsWall = false;
+		
+		isEnd = false;
+		isStart = false;
 		
 		while (wallNumber > 0) {
 			// TODO randomly set up appropriate number of walls
