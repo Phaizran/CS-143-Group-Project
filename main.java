@@ -2,37 +2,20 @@
 public class main {
 
 	public static void main(String[] args) {
-
-public class Main {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		MazeGenerator map = new MazeGenerator(10,10);
-		MazeSolver solver = new MazeSolver(map);
+		MazeGenerator maze = new MazeGenerator(3,9);
+		MazeSolver mazeSolve = new MazeSolver(maze);
+		System.out.println(mazeSolve.solver());
+		System.out.println(mazeSolve.getSolver());
+		int[][] solved = mazeSolve.getSolver();
 		
-		map.printInfo();
-		
-		System.out.println(solver.solver());
-		boolean[][] solve = solver.getCorrectPath();
-		boolean[][] places = solver.getBefore();
-		for(int i = 0; i < map.length; i++)
-		{
-			for(int a = 0; a < map.width; a++)
-			{
-				System.out.print(solve[i][a] + ", ");
+		for(int i = 0; i < solved.length; i++) {
+			for(int z = 0; z < solved[i].length; z++) {
+				System.out.print(solved[i][z]);
 			}
 			System.out.println();
 		}
-
 		
-		MazeGenerator maze = new MazeGenerator(10,10);
-		maze.printInfo();
-		MazeSolver solve = new MazeSolver("pass in the parameter");
 	}
-
+	
 }
 
-	}
-
-}
