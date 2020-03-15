@@ -13,19 +13,50 @@ public class MazeSolver{
 	private int[][] correctPath;
 	//width and height of the maze
 	private int width, height;
+	private int p = 1;
+	  // define the range 
+    private int max,min,range,min2,max2,range2;
 	
+  
 	public MazeSolver(MazeGenerator maze)
 	{
 		//acquiring the information about the maze and initialize solver
+		//generatr random starting point and ending point
+		max = maze.length;
+		min = 1;
+		max2 = maze.width;
+		min2 = 1;
+		range = max - min;
+		range2 = max2 - min2;
+		sX = (int)(Math.random() * range) + 1;
+		sY = (int)(Math.random() * range2) + 1;
+		eX = (int)(Math.random() * range) + 1;
+		eY = (int)(Math.random() * range2) + 1;
 		this.width = maze.width;
 		this.height = maze.length;
 		this.map = maze.map;
-		before = new boolean[width][height];
-		correctPath = new int[width][height];   
-		this.sX = 0;
-		this.sY = 0;
-		this.eX = height - 1;
-		this.eY = width - 1;
+		before = new boolean[height][width];
+		correctPath = new int[height][width];   
+	}
+	public int getSX()
+	{
+		return sX;
+	}
+	public int getSY()
+	{
+		return sY;
+	}
+	public int getEX()
+	{
+		return eX;
+	}
+	public int getEY()
+	{
+		return eY;
+	}
+	public boolean[][] getBefore()
+	{
+		return before;
 	}
 	public boolean solver() {
 		if(solverHelper(sX, sY))
@@ -36,6 +67,14 @@ public class MazeSolver{
 	}
 	public int[][] getSolver()
 	{
+		for(int i = 0; i < height; i++)
+		{
+			for(int a = 0; a < width; a++)
+			{
+				System.out.print(correctPath[i][a] +" ,");
+			}
+			System.out.println();
+		}
 		return correctPath;
 	}
 	
@@ -43,10 +82,12 @@ public class MazeSolver{
 		//if you are at the end, return true;
 		if(y == eY && x == eX)
 		{
+			correctPath[x][y] = p;
+			p++;
 			return true;
 		}
 		//checking if we came to this place before or if it's wall
-		if(before[x][y])
+		if(before[x][y] == true)
 		{
 			return false;
 		}
@@ -60,7 +101,8 @@ public class MazeSolver{
 			//going right
 			if(solverHelper(x, y+1))
 			{
-				correctPath[x][y]= 1;
+				correctPath[x][y]= p;
+				p++;
 				return true;
 			}
 		}
@@ -69,7 +111,8 @@ public class MazeSolver{
 			//going down
 			if(solverHelper(x+1,y))
 			{
-				correctPath[x][y]= 1;
+				correctPath[x][y]= p;
+				p++;
 				return true;
 			}
 		}
@@ -78,7 +121,8 @@ public class MazeSolver{
 			//going up
 			if(solverHelper(x-1,y))
 			{
-				correctPath[x][y]= 1;
+				correctPath[x][y]= p;
+				p++;
 				return true;
 			}
 		}
@@ -88,7 +132,8 @@ public class MazeSolver{
 			//going left
 			if(solverHelper(x,y-1))
 			{
-				correctPath[x][y]= 1;
+				correctPath[x][y]= p;
+				p++;
 				return true;
 			}
 		}
