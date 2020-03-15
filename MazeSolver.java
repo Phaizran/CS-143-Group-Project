@@ -1,5 +1,5 @@
 
-public class MazeSolver{
+public class MazeSolver {
 	
 	//start points
 	private int sX, sY;
@@ -32,6 +32,19 @@ public class MazeSolver{
 		sY = (int)(Math.random() * range2) + 1;
 		eX = (int)(Math.random() * range) + 1;
 		eY = (int)(Math.random() * range2) + 1;
+		this.width = maze.width;
+		this.height = maze.length;
+		this.map = maze.map;
+		before = new boolean[height][width];
+		correctPath = new int[height][width];   
+	}public MazeSolver(MazeGenerator maze, int a)
+	{
+		//acquiring the information about the maze and initialize solver
+		//harder version
+		sX = 1;
+		sY = 1;
+		eX = maze.length - 2;
+		eY = maze.width - 2;
 		this.width = maze.width;
 		this.height = maze.length;
 		this.map = maze.map;
