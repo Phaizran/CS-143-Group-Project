@@ -1,38 +1,25 @@
 
 public class MazeTile {
-	private boolean northIsWall;
-	private boolean eastIsWall;
-	private boolean southIsWall;
-	private boolean westIsWall;
+	private boolean northIsWall = false;
+	private boolean eastIsWall = false;
+	private boolean southIsWall = false;
+	private boolean westIsWall = false;
 	
-	public boolean isEnd;
-	public boolean isStart;
+	private boolean visitedBefore = false;
+	
+	public boolean isEnd = false;
+	public boolean isStart = false;
 
-	// To keep track of tile's position in the maze
-	// Value will be given during the generation of the maze
+	private int xCord = -1;
+	private int yCord = -1;
 
-	private int xCord;
-	private int yCord;
-
-	public MazeTile(int wallNumber) {
+	public MazeTile(int x, int y) {
 		//default x,y
-		this.xCord = this.yCord = 0;
-		
-		northIsWall = false;
-		eastIsWall = false;
-		southIsWall = false;
-		westIsWall = false;
-		
-		isEnd = false;
-		isStart = false;
-		
-		while (wallNumber > 0) {
-			// TODO randomly set up appropriate number of walls
-		}
-
+		xCord = x;
+		yCord = y;
 	}
 
-	public boolean isNorthIsWall() {
+	public boolean isNorthWall() {
 		return northIsWall;
 	}
 
@@ -40,7 +27,7 @@ public class MazeTile {
 		this.northIsWall = northIsWall;
 	}
 
-	public boolean isEastIsWall() {
+	public boolean isEastWall() {
 		return eastIsWall;
 	}
 
@@ -48,7 +35,7 @@ public class MazeTile {
 		this.eastIsWall = eastIsWall;
 	}
 
-	public boolean isSouthIsWall() {
+	public boolean isSouthWall() {
 		return southIsWall;
 	}
 
@@ -56,7 +43,7 @@ public class MazeTile {
 		this.southIsWall = southIsWall;
 	}
 
-	public boolean isWestIsWall() {
+	public boolean isWestWall() {
 		return westIsWall;
 	}
 
@@ -68,17 +55,18 @@ public class MazeTile {
 		return xCord;
 	}
 
-	public void setxCord(int xCord) {
-		this.xCord = xCord;
-	}
-
 	public int getyCord() {
 		return yCord;
 	}
 
-	public void setyCord(int yCord) {
-		this.yCord = yCord;
+	public boolean isVisitedBefore() {
+		return visitedBefore;
 	}
 
+
+	public void setVisitedBefore(boolean visitedBefore) {
+		this.visitedBefore = visitedBefore;
+	}
+	
 
 }

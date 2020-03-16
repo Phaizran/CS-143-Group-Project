@@ -3,36 +3,34 @@ public class MazeGenerator {
 
 	public MazeTile[][] map;
 
-	public int length;
+	public int height;
 	public int width;
 	
 	public boolean End;
 	public boolean Start;
 
 
-	public MazeGenerator(int width, int length) {
-		map = new MazeTile[length][width];
-		this.length = length;
+	public MazeGenerator(int width, int height) {
+		map = new MazeTile[width][height];
+		this.height = height;
 		this.width = width;
 
-		System.out.println("Width: " + this.width + " length: " + length);
+//		System.out.println("Width: " + this.width + " length: " + length);
 
-		for (int x = 0; x < map.length; x++) {
-			for (int y = 0; y < map[x].length; y++) {
-				map[x][y] = new MazeTile(0);
-				map[x][y].setxCord(x);
-				map[x][y].setyCord(y);
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				map[x][y] = new MazeTile(x, y);
 			}
 
 		}
 
 		map[0][0].isStart = true;
-		map[map.length - 1][map[0].length - 1].isEnd = true;
+		map[width - 1][height - 1].isEnd = true;
 
 		// Randomly Generating Walls, TODO: MAY NEED TO SET MORE LIMITS, SUCH AS MAX
 		// WALLS
-		for (int x = 0; x < map.length; x++) {
-			for (int y = 0; y < map[x].length; y++) {
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
 				double north = Math.random();
 				double east = Math.random();
 				double south = Math.random();
@@ -55,44 +53,49 @@ public class MazeGenerator {
 
 		// Opening Walls When There is an Open Wall Adjacent
 		// WARNING: BE CAREFUL OF NONEXISTING TILES
-		for (int x = 0; x < map.length; x++) {
-			for (int y = 0; y < map[x].length; y++) {
-				if(map[x][y].isEastIsWall() && y+1 < width) {
-					map[x][y+1].setWestIsWall(true);
-				} else if(map[x][y].isNorthIsWall() && x-1 > -1 ){
-					map[x-1][y].setSouthIsWall(true);
-				} else if(map[x][y].isSouthIsWall() && x+1 < length) {
-					map[x+1][y].setNorthIsWall(true);
-				} else if (map[x][y].isWestIsWall() && y-1 > -1) {
-					map[x][y-1].setEastIsWall(true);
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (x - 1 > -1 && map[x][y].isWestWall()) {
+					map[x - 1][y].setEastIsWall(true);
 				}
-
+				if (x + 1 < width && map[x][y].isEastWall()) {
+					map[x + 1][y].setWestIsWall(true);
+				}
+				if (y - 1 > -1 && map[x][y].isNorthWall()) {
+					map[x][y - 1].setSouthIsWall(true);
+				}
+				if (y + 1 < height && map[x][y].isSouthWall()) {
+					map[x][y + 1].setNorthIsWall(true);
+				}
 			}
 		}
 
 		// Assigning Border Walls
 
-		for (int x = 0; x < map.length; x++) {
-			for (int y = 0; y < map[x].length; y++) {
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
 				if (x == 0)
 					map[x][y].setWestIsWall(true);
-				if (x == map.length - 1)
+				if (x == width - 1)
 					map[x][y].setEastIsWall(true);
 				if (y == 0)
 					map[x][y].setNorthIsWall(true);
-				if (y == map.length - 1)
+				if (y == height - 1)
 					map[x][y].setSouthIsWall(true);
 			}
 		}
 	}
 
-	public void printInfo() {
-		for (int x = 0; x < map.length; x++) {
-			for (int y = 0; y < map[x].length; y++) {
-				System.out.print("x" + x + ",y" + y + " ");
-			}
-			System.out.println();
-		}
-	}
+//	public void printInfo() {
+//		for (int x = 0; x < map.length; x++) {
+//			for (int y = 0; y < map[x].length; y++) {
+//				System.out.println("Pos: " + map[x][y].getxCord() + "," + map[x][y].getyCord());
+//				System.out.println("North Wall:" + map[x][y].isNorthIsWall() + " East Wall: " + map[x][y].isEastIsWall()
+//						+ " South Wall: " + map[x][y].isSouthIsWall() + " West Wall: " + map[x][y].isWestIsWall()
+//						+ "\n");
+//
+//			}
+//		}
+//	}
 
 }
