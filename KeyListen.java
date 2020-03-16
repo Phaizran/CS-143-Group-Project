@@ -1,24 +1,34 @@
-import java.awt.event.KeyAdapter;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyListen extends KeyAdapter{
+public class KeyListen implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == e.VK_W || e.getKeyCode() == e.VK_UP) {
+		if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP) {
 			Main.p.pSetPos(0, -1);
-			System.out.println("key is working");
 		}
-		if (e.getKeyCode() == e.VK_S || e.getKeyCode() == e.VK_DOWN) {
+		if (e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
 			Main.p.pSetPos(0, 1);
 		}
-		if (e.getKeyCode() == e.VK_A || e.getKeyCode() == e.VK_LEFT) {
+		if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
 			Main.p.pSetPos(-1, 0);
 		}
-		if (e.getKeyCode() == e.VK_D || e.getKeyCode() == e.VK_RIGHT) {
+		if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			Main.p.pSetPos(1, 0);
 		}
+		e.consume();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		e.consume();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		e.consume();
 	}
 
 }

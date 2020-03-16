@@ -15,15 +15,16 @@ public class Main {
 	public final static int MAZE_SIZE = 10;
 	public static MazeTile[][] map;
 	public static Color brown = new Color(0.40f, 0.22f, 0.0f);
+	public static Color purple = new Color(0.70f, 0.0f, 0.70f);
 	private static boolean mazeCreated = false;
 	public static Player p;
 	public static KeyListen kL = new KeyListen();
+	public static JFrame window;
+	public static MazeSolver mS;
 //	public static Room currentRoom;
 
 	public static void main(String[] args) {
-		JFrame window;
 
-		
 		window = new JFrame("A-Maze-Zing");
 		window.setLocationByPlatform(true);
 		@SuppressWarnings("serial")
@@ -54,11 +55,11 @@ public class Main {
 		window.setContentPane(panel);
 		window.setVisible(true);
 		window.setResizable(false);
-		panel.addKeyListener(kL);
+		window.addKeyListener(kL);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		map = new MazeGenerator(MAZE_SIZE, MAZE_SIZE).map;
-		MazeSolver mS = new MazeSolver(map, MAZE_SIZE, MAZE_SIZE);
+		mS = new MazeSolver(map, MAZE_SIZE, MAZE_SIZE);
 		p = new Player(panel.getWidth(), panel.getHeight());
 		newMap(mS);		
 
@@ -108,7 +109,7 @@ public class Main {
 			if (map[currentX][currentY].isWestWall()) {
 				g.setColor(Color.GRAY);
 				g.fillRect((int) (width * 0.2), (int) (height * 0.45), (int) (width * 0.05), (int) (height * 0.1) + 1);
-			}else if (currentX - 1 < -1 && !map[currentX - 1][currentY].isVisitedBefore()){
+			}else if (currentX - 1 > -1 && !map[currentX - 1][currentY].isVisitedBefore()){
 				g.setColor(brown);
 				g.fillRect((int) (width * 0.2), (int) (height * 0.45), (int) (width * 0.05), (int) (height * 0.1) + 1);
 			}
@@ -123,8 +124,8 @@ public class Main {
 			}
 			
 			if(map[currentX][currentY].isEnd) {
-				g.setColor(Color.PINK);
-				g.fillRect((int) (width * 0.45), (int) (height * 0.45), (int) (width * 0.05), (int) (height * 0.1) + 1);
+				g.setColor(purple);
+				g.fillRect(p.end.x, p.end.y, p.end.width, p.end.height);
 			}
 			
 			p.drawP(g, width, height);
@@ -152,18 +153,22 @@ public class Main {
 
 	public static void goNorth() {
 		currentY--;
+		map[currentX][currentY].setVisitedBefore(true);
 	}
 
 	public static void goSouth() {
 		currentY++;
+		map[currentX][currentY].setVisitedBefore(true);
 		
 	}
 
 	public static void goWest() {
 		currentX--;
+		map[currentX][currentY].setVisitedBefore(true);
 	}
 
 	public static void goEast() {
 		currentX++;
+		map[currentX][currentY].setVisitedBefore(true);
 	}
 }
